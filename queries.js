@@ -11,7 +11,7 @@ const pool = mysql.createPool({
 const getUsers = (req, res) => {
     pool.query("SELECT * FROM users ORDER BY id ASC", (err, results) => {
         if (err) {
-            return res.json({ "error": true, "message": "Error occured" + err });
+            return res.json({ "error": true, "message": err });
         }
         else {
             return res.json(results);
@@ -24,7 +24,7 @@ const getUserById = (req, res) => {
 
     pool.query("SELECT * FROM users WHERE id = ?", id, (err, results) => {
         if (err) {
-            return res.json({ "error": true, "message": "Error occured" + err });
+            return res.json({ "error": true, "message": err });
         }
         else {
             return res.json(results);
@@ -39,7 +39,7 @@ const createUser = (req, res) => {
         [name, email],
         (err, results) => {
             if (err) {
-                return res.json({ "error": true, "message": "Error occured" + err });
+                return res.json({ "error": true, "message": err });
             }
             else {
                 return res.status(201).send("User added with ID: " + results.insertId);
@@ -56,7 +56,7 @@ const updateUser = (req, res) => {
         [name, email, id],
         (err, results) => {
             if (err) {
-                return res.json({ "error": true, "message": "Error occured" + err });
+                return res.json({ "error": true, "message": err });
             }
             else {
                 return res.send("User modified with ID: " + id);
@@ -70,7 +70,7 @@ const deleteUser = (req, res) => {
 
     pool.query("DELETE FROM users WHERE id = ?", [id], (err, results) => {
         if (err) {
-            return res.json({ "error": true, "message": "Error occured" + err });
+            return res.json({ "error": true, "message": err });
         }
         else {
             return res.send("User deleted with ID: " + id);
